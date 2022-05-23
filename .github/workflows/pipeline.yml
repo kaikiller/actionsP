@@ -9,8 +9,6 @@ jobs:
   dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: hola
-        run: echo ${{ secrets.sex }}
       - uses: actions/checkout@v3
         with:
           token: ${{ github.token }}
@@ -21,6 +19,9 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           date > generated.txt
+          touch .env
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+          echo API_KEY=${{ secrets.API_KEY }} >> .env
           npm install
           npm run build
           git config user.name github-actions
