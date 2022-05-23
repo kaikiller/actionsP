@@ -15,13 +15,11 @@ jobs:
         with:
           token: ${{ github.token }}
           fetch-depth: 0
-      - run: ls
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: npm install
       - run: npm run build
-      - run: ls
       - uses: actions/checkout@v3
       - run: |
           date > generated.txt
