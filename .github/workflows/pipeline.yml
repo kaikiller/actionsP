@@ -1,0 +1,32 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: hola
+        run: echo ${{ secrets.sex }}
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ github.token }}
+          fetch-depth: 0
+      - run: ls
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm run build
+      - run: ls
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+          REMOTE_HOST: ${{ secrets.PUBLIC_DNS }}
+          REMOTE_USER: ${{ secrets.AWS_USERNAMER }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+      - run: ls -a
