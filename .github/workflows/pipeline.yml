@@ -18,13 +18,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install
-      - run: npm run build
       - uses: actions/checkout@v3
       - run: |
           date > generated.txt
+          npm install
+          npm run build
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "generated"
+          git commit -m "BUILD"
           git push
