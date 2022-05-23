@@ -23,7 +23,9 @@ jobs:
       - run: npm run build
       - run: ls
       - run: | 
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git switch deploy
           git add .
-          git commit -m "push"
+          git commit -m "build"
           git push
